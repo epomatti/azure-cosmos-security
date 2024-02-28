@@ -68,3 +68,29 @@ resource "azurerm_cosmosdb_sql_container" "c001" {
     paths = ["/definition/idlong", "/definition/idshort"]
   }
 }
+
+resource "azurerm_monitor_diagnostic_setting" "cosmos" {
+  name                       = "logs"
+  target_resource_id         = azurerm_cosmosdb_account.db.id
+  log_analytics_workspace_id = var.log_analytics_workspace_id
+
+  enabled_log {
+    category = "DataPlaneRequests"
+  }
+  enabled_log {
+    category = "QueryRuntimeStatistics"
+  }
+  enabled_log {
+    category = "PartitionKeyStatistics"
+  }
+  enabled_log {
+    category = "PartitionKeyRUConsumption"
+  }
+  enabled_log {
+    category = "ControlPlaneRequests"
+  }
+
+  metric {
+    category = "AllMetrics"
+  }
+}
