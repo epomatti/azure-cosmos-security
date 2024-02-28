@@ -30,9 +30,12 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 
   backup {
-    type               = "Continuous"
-    retention_in_hours = 8
-    storage_redundancy = "Local"
+    type = "Continuous"
   }
+}
 
+resource "azurerm_cosmosdb_sql_database" "db001" {
+  name                = "sqldb"
+  resource_group_name = var.resource_group_name
+  account_name        = azurerm_cosmosdb_account.db.name
 }
