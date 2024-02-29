@@ -33,3 +33,7 @@ variable "public_network_access_enabled" {
 variable "ip_range_filter" {
   type = string
 }
+
+variable "compute_subnet_id" {
+  type = string
+}

@@ -23,6 +23,10 @@ Log collection is enabled:
 
 <img src=".assets/cosmos-logs.png" />
 
+Network IP filtering:
+
+<img src=".assets/cosmos-vnet.png" />
+
 ---
 
 ### Destroy
