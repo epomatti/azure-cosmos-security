@@ -25,3 +25,7 @@ variable "keyvault_key_id" {
 variable "cosmos_identity_id" {
   type = string
 }
+
+variable "public_network_access_enabled" {
+  type = bool
+}

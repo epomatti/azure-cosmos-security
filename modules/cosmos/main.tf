@@ -11,6 +11,9 @@ resource "azurerm_cosmosdb_account" "db" {
   key_vault_key_id      = var.keyvault_key_id
   default_identity_type = join("=", ["UserAssignedIdentity", var.cosmos_identity_id])
 
+  public_network_access_enabled         = var.public_network_access_enabled
+  network_acl_bypass_for_azure_services = true
+
   identity {
     type         = "UserAssigned"
     identity_ids = [var.cosmos_identity_id]
@@ -92,6 +95,7 @@ resource "azurerm_monitor_diagnostic_setting" "cosmos" {
   }
 
   metric {
-    category = "AllMetrics"
+    category = "Requests"
+    enabled  = true
   }
 }

@@ -53,14 +53,15 @@ module "keyvault" {
 }
 
 module "cosmos" {
-  source                     = "./modules/cosmos"
-  workload                   = local.workload
-  resource_group_name        = azurerm_resource_group.default.name
-  location                   = azurerm_resource_group.default.location
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.default.id
-  keyvault_key_id            = module.keyvault.keyvault_key_versionless_id
-  random_suffix              = local.suffix
-  cosmos_identity_id         = azurerm_user_assigned_identity.cosmos.id
+  source                        = "./modules/cosmos"
+  workload                      = local.workload
+  resource_group_name           = azurerm_resource_group.default.name
+  location                      = azurerm_resource_group.default.location
+  log_analytics_workspace_id    = azurerm_log_analytics_workspace.default.id
+  keyvault_key_id               = module.keyvault.keyvault_key_versionless_id
+  random_suffix                 = local.suffix
+  cosmos_identity_id            = azurerm_user_assigned_identity.cosmos.id
+  public_network_access_enabled = var.public_network_access_enabled
 }
 
 # module "vm_linux" {
