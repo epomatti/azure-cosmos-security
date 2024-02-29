@@ -43,6 +43,10 @@ resource "azurerm_cosmosdb_account" "db" {
   backup {
     type = "Continuous"
   }
+
+  lifecycle {
+    ignore_changes = [ip_range_filter]
+  }
 }
 
 resource "azurerm_cosmosdb_sql_database" "db001" {
