@@ -62,6 +62,7 @@ module "cosmos" {
   random_suffix                 = local.suffix
   cosmos_identity_id            = azurerm_user_assigned_identity.cosmos.id
   public_network_access_enabled = var.public_network_access_enabled
+  ip_range_filter               = var.cosmos_ip_range_filter
 }
 
 # module "vm_linux" {

@@ -29,3 +29,7 @@ variable "cosmos_identity_id" {
 variable "public_network_access_enabled" {
   type = bool
 }
+
+variable "ip_range_filter" {
+  type = string
+}
