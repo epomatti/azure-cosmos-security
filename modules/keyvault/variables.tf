@@ -13,3 +13,7 @@ variable "workload" {
 variable "random_suffix" {
   type = number
 }
+
+variable "cosmos_principal_id" {
+  type = string
+}

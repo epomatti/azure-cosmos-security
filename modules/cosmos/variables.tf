@@ -21,3 +21,7 @@ variable "random_suffix" {
 variable "keyvault_key_id" {
   type = string
 }
+
+variable "cosmos_identity_id" {
+  type = string
+}

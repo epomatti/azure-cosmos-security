@@ -8,8 +8,9 @@ resource "azurerm_key_vault" "default" {
   sku_name                  = "standard"
   enable_rbac_authorization = true
 
-  # To force Defender recommendations
-  purge_protection_enabled = false
+  # Required for CMK
+  purge_protection_enabled   = true
+  soft_delete_retention_days = 7
 }
 
 resource "azurerm_role_assignment" "current" {
@@ -42,4 +43,11 @@ resource "azurerm_key_vault_key" "generated" {
   }
 
   depends_on = [azurerm_role_assignment.current]
+}
+
+
+resource "azurerm_role_assignment" "cosmos" {
+  scope                = azurerm_key_vault.default.id
+  role_definition_name = "Key Vault Crypto Service Encryption User"
+  principal_id         = var.cosmos_principal_id
 }

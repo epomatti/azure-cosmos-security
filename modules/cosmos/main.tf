@@ -5,11 +5,16 @@ resource "azurerm_cosmosdb_account" "db" {
   offer_type          = "Standard"
   kind                = "GlobalDocumentDB"
 
-  key_vault_key_id = var.keyvault_key_id
-
   local_authentication_disabled = true
   enable_automatic_failover     = false
 
+  key_vault_key_id      = var.keyvault_key_id
+  default_identity_type = join("=", ["UserAssignedIdentity", var.cosmos_identity_id])
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [var.cosmos_identity_id]
+  }
 
   capabilities {
     name = "EnableServerless"

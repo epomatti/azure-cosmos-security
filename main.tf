@@ -37,12 +37,19 @@ resource "azurerm_log_analytics_workspace" "default" {
   retention_in_days   = 30
 }
 
+resource "azurerm_user_assigned_identity" "cosmos" {
+  name                = "cosmos"
+  location            = azurerm_resource_group.default.location
+  resource_group_name = azurerm_resource_group.default.name
+}
+
 module "keyvault" {
-  source        = "./modules/keyvault"
-  workload      = local.workload
-  group         = azurerm_resource_group.default.name
-  location      = azurerm_resource_group.default.location
-  random_suffix = local.suffix
+  source              = "./modules/keyvault"
+  workload            = local.workload
+  group               = azurerm_resource_group.default.name
+  location            = azurerm_resource_group.default.location
+  random_suffix       = local.suffix
+  cosmos_principal_id = azurerm_user_assigned_identity.cosmos.principal_id
 }
 
 module "cosmos" {
@@ -51,8 +58,9 @@ module "cosmos" {
   resource_group_name        = azurerm_resource_group.default.name
   location                   = azurerm_resource_group.default.location
   log_analytics_workspace_id = azurerm_log_analytics_workspace.default.id
-  keyvault_key_id            = module.keyvault.keyvault_key_resource_id
+  keyvault_key_id            = module.keyvault.keyvault_key_versionless_id
   random_suffix              = local.suffix
+  cosmos_identity_id         = azurerm_user_assigned_identity.cosmos.id
 }
 
 # module "vm_linux" {
