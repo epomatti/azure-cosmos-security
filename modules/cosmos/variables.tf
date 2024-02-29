@@ -13,3 +13,11 @@ variable "location" {
 variable "log_analytics_workspace_id" {
   type = string
 }
+
+variable "random_suffix" {
+  type = number
+}
+
+variable "keyvault_key_id" {
+  type = string
+}

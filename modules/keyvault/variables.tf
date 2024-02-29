@@ -9,3 +9,7 @@ variable "location" {
 variable "workload" {
   type = string
 }
+
+variable "random_suffix" {
+  type = number
+}

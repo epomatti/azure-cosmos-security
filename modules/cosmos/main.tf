@@ -1,15 +1,11 @@
-resource "random_integer" "ri" {
-  min = 10000
-  max = 99999
-}
-
 resource "azurerm_cosmosdb_account" "db" {
-  name                = "cosmos-${var.workload}-${random_integer.ri.result}"
+  name                = "cosmos-${var.workload}-${var.random_suffix}"
   location            = var.location
   resource_group_name = var.resource_group_name
   offer_type          = "Standard"
   kind                = "GlobalDocumentDB"
 
+  key_vault_key_id = var.keyvault_key_id
 
   local_authentication_disabled = true
   enable_automatic_failover     = false

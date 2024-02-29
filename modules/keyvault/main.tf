@@ -1,14 +1,7 @@
 data "azurerm_client_config" "current" {}
 
-resource "random_string" "random" {
-  length  = 6
-  special = false
-  upper   = false
-  numeric = true
-}
-
 resource "azurerm_key_vault" "default" {
-  name                      = "kv-${var.workload}${random_string.random.result}"
+  name                      = "kv-${var.workload}${var.random_suffix}"
   location                  = var.location
   resource_group_name       = var.group
   tenant_id                 = data.azurerm_client_config.current.tenant_id
@@ -26,7 +19,7 @@ resource "azurerm_role_assignment" "current" {
 }
 
 resource "azurerm_key_vault_key" "generated" {
-  name         = "mssql-tde-key"
+  name         = "cosmos-key"
   key_vault_id = azurerm_key_vault.default.id
   key_type     = "RSA"
   key_size     = 2048
