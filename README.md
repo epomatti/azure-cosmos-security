@@ -8,6 +8,8 @@ Set up the variables:
 cp config/template.tfvars .auto.tfvars
 ```
 
+Set your IP address in `cosmos_ip_range_filter`.
+
 Create the resources:
 
 ```sh
