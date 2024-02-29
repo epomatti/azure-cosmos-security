@@ -14,3 +14,19 @@ Create the resources:
 terraform init
 terraform apply -auto-approve
 ```
+
+The database will created with CMK:
+
+<img src=".assets/cosmos-cmk.png" />
+
+Log collection is enabled:
+
+<img src=".assets/cosmos-logs.png" />
+
+---
+
+### Destroy
+
+```sh
+terraform destroy -auto-approve
+```
