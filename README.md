@@ -32,7 +32,7 @@ go get
 go run .
 ```
 
-For the NoSQL distribution there are only two [built-in role definitions][1]:
+For data operations there are only two [built-in role definitions][1]:
 
 - `Cosmos DB Built-in Data Reader`
 - `Cosmos DB Built-in Data Contributor`
