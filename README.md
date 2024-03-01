@@ -19,9 +19,7 @@ terraform init
 terraform apply -auto-approve
 ```
 
-## Go SDK
-
-Use the client in the `/client` directory to send data to Cosmos.
+Use the Go SDK client in the `/client` directory to send data to Cosmos.
 
 Create the `.env` file:
 
