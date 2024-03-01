@@ -56,32 +56,12 @@ resource "azurerm_cosmosdb_sql_database" "db001" {
 }
 
 resource "azurerm_cosmosdb_sql_container" "c001" {
-  name                  = "example-container"
+  name                  = "products"
   resource_group_name   = var.resource_group_name
   account_name          = azurerm_cosmosdb_account.db.name
   database_name         = azurerm_cosmosdb_sql_database.db001.name
-  partition_key_path    = "/definition/id"
+  partition_key_path    = "/category"
   partition_key_version = 1
-
-  indexing_policy {
-    indexing_mode = "consistent"
-
-    included_path {
-      path = "/*"
-    }
-
-    included_path {
-      path = "/included/?"
-    }
-
-    excluded_path {
-      path = "/excluded/?"
-    }
-  }
-
-  unique_key {
-    paths = ["/definition/idlong", "/definition/idshort"]
-  }
 }
 
 resource "azurerm_monitor_diagnostic_setting" "cosmos" {
@@ -109,4 +89,21 @@ resource "azurerm_monitor_diagnostic_setting" "cosmos" {
     category = "Requests"
     enabled  = true
   }
+}
+
+
+data "azurerm_client_config" "current" {}
+
+data "azurerm_cosmosdb_sql_role_definition" "contributor" {
+  resource_group_name = var.resource_group_name
+  account_name        = azurerm_cosmosdb_account.db.name
+  role_definition_id  = "00000000-0000-0000-0000-000000000002"
+}
+
+resource "azurerm_cosmosdb_sql_role_assignment" "contributor" {
+  resource_group_name = var.resource_group_name
+  account_name        = azurerm_cosmosdb_account.db.name
+  role_definition_id  = data.azurerm_cosmosdb_sql_role_definition.contributor.id
+  principal_id        = data.azurerm_client_config.current.object_id
+  scope               = azurerm_cosmosdb_account.db.id
 }
