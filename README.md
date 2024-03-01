@@ -37,6 +37,16 @@ For data operations there are only two [built-in role definitions][1]:
 - `Cosmos DB Built-in Data Reader`
 - `Cosmos DB Built-in Data Contributor`
 
+Since Diagnostics has been enabled, troubleshooting can be performed using Azure Monitor.
+
+This query will filter for data plane requests:
+
+```sql
+AzureDiagnostics
+| where Category == "DataPlaneRequests" and TimeGenerated > ago(1h)
+| project TimeGenerated, aadPrincipalId_g, Resource, OperationName, requestResourceId_s, statusCode_s, clientIpAddress_s, authTokenType_s, keyType_s
+```
+
 Other security features will be described below.
 
 The database will created with CMK:
