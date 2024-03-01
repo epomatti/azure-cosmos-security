@@ -2,6 +2,8 @@
 
 Security features for Cosmos DB.
 
+## Setup
+
 Set up the variables:
 
 ```sh
@@ -16,6 +18,8 @@ Create the resources:
 terraform init
 terraform apply -auto-approve
 ```
+
+## Go SDK
 
 Use the client in the `/client` directory to send data to Cosmos.
 
@@ -37,6 +41,8 @@ For data operations there are only two [built-in role definitions][1]:
 - `Cosmos DB Built-in Data Reader`
 - `Cosmos DB Built-in Data Contributor`
 
+## Monitor
+
 Since Diagnostics has been enabled, troubleshooting can be performed using Azure Monitor.
 
 This query will filter for data plane requests in the `AzureDiagnostics` table. With Entra ID authentication it is possible to audit users that access data in Cosmos DB accounts.
@@ -49,7 +55,7 @@ AzureDiagnostics
 | project TimeGenerated, aadPrincipalId_g, Resource, OperationName, requestResourceId_s, statusCode_s, clientIpAddress_s, authTokenType_s, keyType_s
 ```
 
-Other security features will be described below.
+## Security (other)
 
 The database will created with CMK:
 
