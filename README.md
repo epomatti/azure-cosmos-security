@@ -39,7 +39,9 @@ For data operations there are only two [built-in role definitions][1]:
 
 Since Diagnostics has been enabled, troubleshooting can be performed using Azure Monitor.
 
-This query will filter for data plane requests:
+This query will filter for data plane requests in the `AzureDiagnostics` table. With Entra ID authentication it is possible to audit users that access data in Cosmos DB accounts.
+
+> For this scenario, local authentication should be disabled
 
 ```sql
 AzureDiagnostics
