@@ -45,7 +45,7 @@ Since Diagnostics has been enabled, troubleshooting can be performed using Azure
 
 This query will filter for data plane requests in the `AzureDiagnostics` table. With Entra ID authentication it is possible to audit users that access data in Cosmos DB accounts.
 
-> 💡 For this scenario, local authentication should be disabled
+> 💡 For this scenario, local authentication should be disabled and users would have to use Entra ID
 
 ```sql
 AzureDiagnostics
